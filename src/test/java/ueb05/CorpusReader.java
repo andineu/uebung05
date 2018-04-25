@@ -4,6 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.util.Iterator;
 
 class CorpusReader {
@@ -11,8 +14,8 @@ class CorpusReader {
 
 	static Iterator<String> thesisTitleIterator() throws IOException {
 		ClassLoader classLoader = CorpusReader.class.getClassLoader();
-		File file = new File(classLoader.getResource("theses.txt").getFile());
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+		InputStream is = classLoader.getResourceAsStream("theses.txt");
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
 		return new Iterator<String>() {
 			// keep first line ready
